@@ -16,7 +16,7 @@
 	    
 #CFLAGS = -g -DDEBUG
 CFLAGS = -g
-LEX = /usr/local/bin/flex
+LEX = flex
 LFLAGS =
 YACC = bison
 YFLAGS =

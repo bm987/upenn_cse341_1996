@@ -37,7 +37,6 @@ struct entry * ptr;		/* tmp ptr */
 
 int token_listing = 0;		/* list each token? */
 int ret;			/* token return value */
-int yylineno = 1;		/* current line no. */
 
 %}
 
