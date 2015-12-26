@@ -1,0 +1,115 @@
+\input{psfig}
+\documentstyle[11pt]{article}
+\setlength{\parindent}{0em}
+\begin{document}
+\begin{center}
+{\LARGE \begin{bf}CSE 341\end{bf}: Compilers and Interpreters \\  }
+Project Submission \\
+Mike Berry (\begin{it}berrym@seas.upenn.edu\end{it}) \\
+
+\end{center}
+
+\section{High level description}
+
+The project consists of a compiler (\begin{it}``mcc''\end{it}) that
+compiles a subset of the C language into SPARC Assembly language. \\
+
+The compiler consist of three distinct phases:
+\begin{enumerate}
+
+\item lexical analysis
+
+\item parsing
+
+\item code generation
+\end{enumerate}
+
+Type checking and symbol management are done throughout the three
+stages.
+
+\section{The source code}
+
+\subsection{Management}
+
+The source code is managed by \begin{it}RCS\end{it} and compiled using the
+\begin{it}make\end{it} utility.
+
+The source code is divided up somewhat along the lines of the
+major functions described in section 1:
+
+\begin{itemize}
+
+\item globals.h -- structures, global variabes, and function prototypes
+
+\item mcc.l -- flex lexer
+
+\item mcc.y -- bison parser
+
+\item symbol.c -- symbol table management
+
+\item tree.c -- syntax tree management, type checking
+
+\item register.c -- code generation, register allocation
+\end{itemize}
+
+\subsection{Compiling}
+
+Using the make utility, the code compiles into an executable called mcc.
+
+\begin{verbatim}
+$ make 
+bison -v -d mcc.y
+gcc -g  symbol.c -c
+gcc -g  tree.c -c
+/usr/local/bin/flex mcc.l
+gcc -g  lex.yy.c -c
+gcc -g  mcc.tab.c -c
+gcc -g  register.c -c
+gcc -g  -o mcc symbol.o lex.yy.o mcc.tab.o tree.o register.o -lfl -ly
+\end{verbatim}
+
+\section{What works; what doesn't work}
+
+The primary weakness of \begin{it}mcc\end{it} is inefficient code
+generation.  Registers are flushed and loaded to and from the
+stack often; global registers are not used at all; local registers are not
+used often enough. \\
+
+
+Also, global variables were not implemented correctly and dropped.  I 
+have also noticed that integer $\rightarrow$ float raising does
+not occur in some instances; however, it does occur correctly in
+all the sample programs.  I was unable to isolate the source
+of the problem.
+
+\section{Submission}
+
+There are three ``useful'' programs which demonstrate
+commonly known non-trvial algorithms, and one ``useless'' program
+which demonstrates various control structures and expressions. \\
+
+
+With each program is the mcc source, assembly output from mcc,
+and compile/ runtime shell logs.
+
+\begin{enumerate}
+
+\item fquick -- quick sort
+
+\item ssort -- shell sort
+
+\item factorial -- factorial 
+
+\item sample -- ``useless''
+
+
+\end{enumerate}
+Also attached is the full source listing.
+
+\section{Acknowledgements}
+
+I'd like to thank my roommates for putting up with me talking
+to myself while wearing a bicycle helmet while doing this project.
+
+\end{document}
+
