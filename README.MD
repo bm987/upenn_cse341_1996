@@ -10,11 +10,11 @@ Compiling and Running on Linux
 
 On a modern Linux distribution, you just need gcc, make, flex-devel, bison-devel. To make and compile the sample quicksort program in "sample1":
 
-   make clean
-   make
-   cd sample1
-   ../mcc fquick.c
-   cat fquick.s
+	make clean
+	make
+	cd sample1
+	../mcc fquick.c
+	cat fquick.s
 
 Of course, it generates SPARC assembly... so it won't be very useful on an x86 CPU.  Maybe it wouldn't need too many changes to work on a RISC CPU like an ARM.
 
